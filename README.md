@@ -5,13 +5,7 @@ It allows users to generate short URLs, manage them, and view analytics — all 
 
 ---
 
-## 📸 Screenshots
-
-### Create Short URL + Manage Short URL
-
-![Create URL](./screenshot-create-manage.png)
-
-### Short Link Info + Analytics
+## 📸 Screenshot
 
 ![alt text](image.png)
 
@@ -36,6 +30,7 @@ It allows users to generate short URLs, manage them, and view analytics — all 
 - **Framer Motion** for animations
 - **Axios** for API communication
 - **Clipboard API** for copy functionality  
+- **Nest JS** for backend
 
 ---
 
