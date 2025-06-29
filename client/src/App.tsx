@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { ShortUrlForm } from './components/ShortUrlForm';
+import { ShortUrlActions } from './components/ShortUrlActions';
+import InfoPanel from './components/InfoPanel';
+import { Layout } from './components/Layout';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [info, setInfo] = useState<any>(null);
+  const [analytics, setAnalytics] = useState<any>(null);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="mx-auto min-h-screen flex flex-col items-center justify-center p-6 font-sans">
+      <h1 className="text-4xl font-extrabold text-center mb-8">
+        ✂️ URL Shortener
+      </h1>
+        <Layout>
+            <ShortUrlForm
+              onCreated={(info) => {
+                setInfo(info);
+                setAnalytics(null);
+              }}
+            />
+            <ShortUrlActions
+              onInfoLoaded={(data) => {
+                setInfo(data);
+                setAnalytics(null);
+              }}
+              onAnalyticsLoaded={(data) => setAnalytics(data)}
+              onDeleted={() => {
+                setInfo(null);
+                setAnalytics(null);
+              }}
+            />
+            <InfoPanel info={info} analytics={analytics} />
+        </Layout>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  );
 }
 
-export default App
+export default App;
