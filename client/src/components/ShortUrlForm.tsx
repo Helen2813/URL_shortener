@@ -9,13 +9,31 @@ interface Props {
 
 export const ShortUrlForm = ({ onCreated }: Props) => {
   const [originalUrl, setOriginalUrl] = useState('');
-  const [alias, setAlias] = useState('');
-  const [expiresAt, setExpiresAt] = useState('');
+  const [alias, setAlias] = useState<string>('');
+  const [expiresAt, setExpiresAt] = useState<string>('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const aliasPattern = /^[a-zA-Z0-9-_]*$/;
+
+    const cleanedAlias = alias.trim();
+    if (cleanedAlias && !aliasPattern.test(cleanedAlias)) {
+      alert("Alias can only contain Latin letters, numbers, hyphens, and underscores.");
+      return;
+    }
+
+    // Convert expiresAt to UTC ISO string if filled
+    const expiresIso = expiresAt
+      ? new Date(expiresAt).toISOString()
+      : undefined;
+
     try {
-      const res = await api.createShortUrl(originalUrl, alias, expiresAt);
+      const res = await api.createShortUrl(
+        originalUrl,
+        cleanedAlias === '' ? undefined : cleanedAlias,
+        expiresIso
+      );
       onCreated(res.data);
     } catch (err: any) {
       alert(err.response?.data?.message || 'Error creating short URL');
