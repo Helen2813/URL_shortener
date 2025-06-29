@@ -1,7 +1,7 @@
 # ✂️ URL Shortener
 
 A modern, stylish **URL Shortener** app built with React + TypeScript, Tailwind CSS, and Framer Motion.  
-It allows users to generate short URLs, manage them, and view analytics — all with a beautiful dark-themed UI.
+It allows users to generate short URLs, manage them, and view analytics. All with a beautiful dark-themed UI.
 
 ---
 
